@@ -19,7 +19,7 @@ class MeritBadgeFinalProject extends LitElement {
       max-width: 960px;
       margin: 0 auto;
       text-align: center;
-      background-color: var(--merit-badge-final-project-background-color);
+      background-color: white;
     }
 
     main {
@@ -68,19 +68,10 @@ class MeritBadgeFinalProject extends LitElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Code examples
+          Code examples Hello World
         </a>
       </main>
 
-      <p class="app-footer">
-        🚽 Made with love by
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/open-wc"
-          >open-wc</a
-        >.
-      </p>
     `;
   }
 }
