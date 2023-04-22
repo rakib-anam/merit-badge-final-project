@@ -8,30 +8,34 @@ class MeritBadge extends LitElement {
       title: { type: String },
       date: { type: String },
       skills: { type: Array },
-      locked: { type: Boolean },
-      verificationLink: { type: String },
+      icon: { type: String },
+      verificationLink: { type: String }
     };
   }
 
   static get styles() {
     return css`
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      :host {
+        display: block;
+        text-align: center;
+        position: relative;
+        margin-bottom: 50px;
       }
 
-      .button {
-        background-color: blue;
-        color: white;
-        border-radius: 10px;
-        padding: 10px;
-        margin-top: 10px;
+      button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        border: none;
+        background-color: var(--button-bg-color, #2196F3);
+        color: var(--button-text-color, #FFF);
+        border-radius: 5px;
+        font-size: 16px;
         cursor: pointer;
       }
 
-      .button:hover {
-        background-color: darkblue;
+      button:active {
+        background-color: #0c375a;
       }
     `;
   }
@@ -43,27 +47,26 @@ class MeritBadge extends LitElement {
 
   render() {
     return html`
-      <div class="container">
-        <badge-sticker 
-          .title=${this.title} 
-          .date=${this.date} 
-          .skills=${this.skills} 
-          .locked=${this.locked} 
-          .verificationLink=${this.verificationLink}>
-        </badge-sticker>
-        ${this.locked ?
-          html`<button class="button" @click=${this._unlockBadge}>Unlock Badge</button>` :
-          html``
-        }
-      </div>
+    <!-- badge -->
+      <badge-sticker 
+        .title=${this.title}
+        .date=${this.date}
+        .skills=${this.skills}
+        .icon=${this.icon}
+        .locked=${this.locked}
+        .verificationLink=${this.verificationLink}>
+      </badge-sticker>
+    <!-- button -->
+      <button id="unlockBadgeButton" 
+      @click="${this.handleButtonClick}"
+      >Unlock Badge</button>
     `;
   }
 
-  _unlockBadge() {
-    const unlockEvent = new CustomEvent('unlockBadge', { bubbles: true, composed: true });
-    this.dispatchEvent(unlockEvent);
-    this.date = new Date().toLocaleDateString();
+  handleButtonClick() {
     this.locked = false;
+    const today = new Date();
+    this.date = "Unlocked on " + today.toDateString();
   }
 
 }

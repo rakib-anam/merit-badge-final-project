@@ -1,13 +1,15 @@
 import { LitElement, html, css } from 'lit-element';
-import './BadgeSticker.js';
 
-class MeritBadge extends LitElement {
+class BadgeSticker extends LitElement {
+
   static get properties() {
     return {
       title: { type: String },
       date: { type: String },
       skills: { type: Array },
-      unlocked: { type: Boolean },
+      icon: { type: String },
+      locked: { type: Boolean },
+      verificationLink: { type: String },
     };
   }
 
@@ -15,80 +17,68 @@ class MeritBadge extends LitElement {
     return css`
       :host {
         display: inline-block;
+        text-align: center;
         position: relative;
       }
 
-      .details {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        padding: 10px;
-        z-index: 1;
-      }
-
-      :host([unlocked]) .details {
-        display: block;
-      }
-
-      .button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 5px 10px;
-        border: 1px solid black;
-        background-color: white;
+      .badge {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        background-color: var(--badge-color, #000000);
+        border: 2px solid var(--badge-stitch-color, #FFF);
+        border-radius: 50%;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
         cursor: pointer;
+      }
+
+      .badge.locked {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .badge-icon {
+        font-size: 70px;
+        color: var(--badge-icon-color, #ffffff);
+      }
+
+      .badge-label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: var(--badge-label-color, #ffffff);
+        text-align: center
+        width: 120px;
+      }
+
+      .badge-date {
+        font-size: 12px;
+        margin-top: 5px;
+        color: var(--badge-date-color, #ffffff);
       }
     `;
   }
 
   constructor() {
     super();
-    this.title = '';
-    this.date = '';
-    this.skills = [];
-    this.unlocked = false;
+    this.locked = true;
   }
 
   render() {
     return html`
-      <badge-sticker
-        title=${this.title}
-        .skills=${this.skills}
-        ?unlocked=${this.unlocked}
-        @click=${this._handleBadgeClick}
-      ></badge-sticker>
-      <div class="details">
-        <p>Date Unlocked: ${this.date}</p>
-        <p>Skills:</p>
-        <ul>
-          ${this.skills.map((skill) => html`<li>${skill}</li>`)}
-        </ul>
-        <button class="button" @click=${this._handleButtonClick}>
-          ${this.unlocked ? 'Lock Badge' : 'Unlock Badge'}
-        </button>
+      <div class="badge ${this.locked ? 'locked' : ''}">
+        <div class="badge-icon">${this.icon}
+        <div class="badge-label">${this.title}</div>
+      <div class="badge-date">${this.date}</div>
+      </div>
       </div>
     `;
   }
 
-  _handleBadgeClick() {
-    this.unlocked = !this.unlocked;
-  }
-
-  _handleButtonClick() {
-    if (this.unlocked) {
-      this.date = new Date().toLocaleDateString();
-      this.dispatchEvent(new CustomEvent('lockBadge'));
-    } else {
-      this.date = '';
-      this.dispatchEvent(new CustomEvent('unlockBadge'));
-    }
-    this.unlocked = !this.unlocked;
-    this.requestUpdate();
-  }
 }
 
-customElements.define('merit-badge', MeritBadge);
+customElements.define('badge-sticker', BadgeSticker);
