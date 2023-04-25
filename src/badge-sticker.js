@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
+
 class BadgeSticker extends LitElement {
 
   static get properties() {
@@ -29,7 +30,7 @@ class BadgeSticker extends LitElement {
         width: 200px;
         height: 200px;
         background-color: var(--badge-color, #000000);
-        border: 2px solid var(--badge-stitch-color, #FFF);
+        border: 2px dashed var(--badge-stitch-color, #FFF);
         border-radius: 50%;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
         overflow: hidden;
@@ -60,6 +61,7 @@ class BadgeSticker extends LitElement {
         margin-top: 5px;
         color: var(--badge-date-color, #ffffff);
       }
+
     `;
   }
 
@@ -72,9 +74,9 @@ class BadgeSticker extends LitElement {
     return html`
       <div class="badge ${this.locked ? 'locked' : ''}">
         <div class="badge-icon">${this.icon}
-        <div class="badge-label">${this.title}</div>
-      <div class="badge-date">${this.date}</div>
-      </div>
+          <div class="badge-label">${this.title}</div>
+          <div class="badge-date">${this.date}</div>
+        </div>
       </div>
     `;
   }
