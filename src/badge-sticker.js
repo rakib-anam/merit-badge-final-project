@@ -8,7 +8,7 @@ class BadgeSticker extends LitElement {
       title: { type: String },
       date: { type: String },
       skills: { type: Array },
-      icon: { type: String },
+      logo: { type: String },
       locked: { type: Boolean },
       verificationLink: { type: String },
     };
@@ -42,9 +42,9 @@ class BadgeSticker extends LitElement {
         cursor: not-allowed;
       }
 
-      .badge-icon {
+      .badge-logo {
         font-size: 70px;
-        color: var(--badge-icon-color, #ffffff);
+        color: var(--badge-logo-color, #ffffff);
       }
 
       .badge-label {
@@ -73,7 +73,7 @@ class BadgeSticker extends LitElement {
   render() {
     return html`
       <div class="badge ${this.locked ? 'locked' : ''}">
-        <div class="badge-icon">${this.icon}
+        <div class="badge-logo">${this.logo}
           <div class="badge-label">${this.title}</div>
           <div class="badge-date">${this.date}</div>
         </div>
