@@ -1,5 +1,10 @@
 import { LitElement, html, css } from 'lit-element';
 import "@lrnwebcomponents/absolute-position-behavior/absolute-position-behavior.js";
+import "@lrnwebcomponents/simple-icon/simple-icon.js";
+import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
+import "@lrnwebcomponents/simple-icon/lib/simple-icon-button.js";
+//import "@lrnwebcomponents/simple-colors.js";
+
 import './badge-sticker.js';
 
 class MeritBadge extends LitElement {
@@ -10,6 +15,7 @@ class MeritBadge extends LitElement {
       date: { type: String },
       skills: { type: Array },
       logo: { type: String },
+      locked: { type: Boolean },
       verificationLink: { type: String }
     };
   }
@@ -38,12 +44,14 @@ class MeritBadge extends LitElement {
       button:active {
         background-color: #0c375a;
       }
+
     `;
   }
 
   constructor() {
     super();
     this.locked = true;
+    this.date = "Locked";
   }
 
   render() {
@@ -57,6 +65,9 @@ class MeritBadge extends LitElement {
         .locked=${this.locked}
         .verificationLink=${this.verificationLink}>
       </badge-sticker>
+
+    <!-- INSERT ABSOLUTE POSITION CODE -->
+
     <!-- button -->
       <button id="unlockBadgeButton" 
       @click="${this.handleButtonClick}"
@@ -64,11 +75,12 @@ class MeritBadge extends LitElement {
     `;
   }
 
-  handleButtonClick() {
+  handleButtonClick() {  
     this.locked = false;
     const today = new Date();
     this.date = "Unlocked on " + today.toDateString();
   }
+
 
 }
 

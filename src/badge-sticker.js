@@ -1,4 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
+import "@lrnwebcomponents/simple-icon/simple-icon.js";
+import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
+import "@lrnwebcomponents/simple-icon/lib/simple-icon-button.js";
+//import "@lrnwebcomponents/simple-colors.js";
 
 
 class BadgeSticker extends LitElement {
@@ -10,7 +14,6 @@ class BadgeSticker extends LitElement {
       skills: { type: Array },
       logo: { type: String },
       locked: { type: Boolean },
-      verificationLink: { type: String },
     };
   }
 
@@ -24,12 +27,9 @@ class BadgeSticker extends LitElement {
 
       .badge {
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 200px;
-        height: 200px;
-        background-color: var(--badge-color, #000000);
+        width: 300px;
+        height: 300px;
+        background-color: var(--badge-color, #7cc6e6);
         border: 2px dashed var(--badge-stitch-color, #FFF);
         border-radius: 50%;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
@@ -44,21 +44,23 @@ class BadgeSticker extends LitElement {
 
       .badge-logo {
         font-size: 70px;
+        margin-top:25px;
         color: var(--badge-logo-color, #ffffff);
       }
 
       .badge-label {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: bold;
-        margin-top: 10px;
+        margin-top: 50px;
         color: var(--badge-label-color, #ffffff);
         text-align: center
         width: 120px;
       }
 
       .badge-date {
-        font-size: 12px;
-        margin-top: 5px;
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         color: var(--badge-date-color, #ffffff);
       }
 
@@ -67,18 +69,25 @@ class BadgeSticker extends LitElement {
 
   constructor() {
     super();
-    this.locked = true;
   }
 
   render() {
     return html`
       <div class="badge ${this.locked ? 'locked' : ''}">
-        <div class="badge-logo">${this.logo}
-          <div class="badge-label">${this.title}</div>
-          <div class="badge-date">${this.date}</div>
+        <div class="badge-label">${this.title}</div>
+        <div class="badge-logo">${this.logo}</div>
+        <div class="badge-date">${this.date}</div>
+        <div class="icons">
+          <simple-icon-button icon="check-circle" @click="${this.verify}"></simple-icon-button>
+          <simple-icon-button icon="group-work" @click="${this.clickHandler}"></simple-icon-button>
         </div>
       </div>
     `;
+  }
+
+
+  verify() {
+    window.open(this.verificationLink, "_blank");
   }
 
 }
