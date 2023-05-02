@@ -66,9 +66,6 @@ class MeritBadge extends LitElement {
         .verificationLink=${this.verificationLink}>
       </badge-sticker>
 
-    <!-- ABSOLUTE POSITION CODE FOR SKILLS POP OVER -->
-    
-
     <!-- button -->
       <button id="unlockBadgeButton" 
       @click="${this.handleButtonClick}"

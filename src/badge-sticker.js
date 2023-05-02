@@ -11,9 +11,13 @@ class BadgeSticker extends LitElement {
     return {
       title: { type: String },
       date: { type: String },
-      skills: { type: Array },
       logo: { type: String },
       locked: { type: Boolean },
+      verificationLink: { type: String },
+
+      skills: { type: Array },
+      activeNode: {type: Object},
+      skillsOpened: {type: Boolean},
     };
   }
 
@@ -63,11 +67,23 @@ class BadgeSticker extends LitElement {
         color: var(--badge-date-color, #ffffff);
       }
 
+      .skills {
+      background-color: grey;
+      padding: 10px;
+      margin: 5px;
+      border: 4px solid black;
+      width: 100%;
+      min-width: 100px;
+    }
+    
     `;
   }
 
   constructor() {
     super();
+
+    this.activeNode = null;
+    this.skillsOpened = false;
   }
 
   render() {
@@ -80,13 +96,41 @@ class BadgeSticker extends LitElement {
           <simple-icon-button icon="check-circle" @click="${this.verify}"></simple-icon-button>
           <simple-icon-button icon="group-work" @click="${this.clickHandler}"></simple-icon-button>
         </div>
+        <div id="skillList">
+          <simple-icon-button icon="cancel" @click="${this.skillClick}"></simple-icon-button>
+        </div>
       </div>
+    
+      <!-- ABSOLUTE POSITION CODE FOR SKILLS POP OVER -->
+
+      <absolute-position-behavior
+          justify
+          position="bottom"
+          allow-overlap
+          sticky
+          auto
+          .target="${this.activeNode}"
+          ?hidden="${!this.skillsOpened}">
+            <ul class="skills">${this.skills.map(item => html`<li>${item}</li>`)}</ul>
+        </absolute-position-behavior>
     `;
   }
 
-
+  //verification icon button function
   verify() {
     window.open(this.verificationLink, "_blank");
+  }
+
+  //skills popover functions 
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
+    this.activeNode = this.shadowRoot.querySelector("#skillList");
+  }
+  skillClick(e) {
+    this.skillsOpened = !this.skillsOpened;
+    console.log(this.skillsOpened)
   }
 
 }
