@@ -43,9 +43,8 @@ class BadgeSticker extends LitElement {
       }
 
       .badge-logo {
-        font-size: 70px;
+        font-size: 50px;
         margin-top:25px;
-        color: var(--badge-logo-color, #ffffff);
       }
 
       .badge-label {
@@ -75,7 +74,7 @@ class BadgeSticker extends LitElement {
     return html`
       <div class="badge ${this.locked ? 'locked' : ''}">
         <div class="badge-label">${this.title}</div>
-        <div class="badge-logo">${this.logo}</div>
+        <div class="badge-logo"><simple-icon icon="${this.logo}"></simple-icon></div>
         <div class="badge-date">${this.date}</div>
         <div class="icons">
           <simple-icon-button icon="check-circle" @click="${this.verify}"></simple-icon-button>
