@@ -98,6 +98,18 @@ class BadgeSticker extends SimpleColors {
       width: 100%;
       min-width: 100px;
     }
+
+    //styling the footer icons to be side-by-side
+    .iconContainerDiv {
+        margin: 1rem;
+        padding: 2rem 2rem;
+        text-align: center;
+      }
+      .iconDiv {
+        display: inline-block;
+        padding: 1rem 0.5rem;
+        vertical-align: middle;
+      }
     
   `];
 
@@ -114,15 +126,17 @@ class BadgeSticker extends SimpleColors {
         <div class="badge-label">${this.title}</div>
         <div class="badge-logo"><simple-icon icon="${this.logo}"></simple-icon></div>
         <div class="badge-date">${this.date}</div>
-        <div class="icons">
+        <div class="iconContainerDiv">
+        <div class="iconDiv">
           <simple-icon-button icon="check-circle" @click="${this.verify}"></simple-icon-button>
         </div>
-        <div id="skillList">
+        <div class="iconDiv" id="skillList">
           <simple-icon-button icon="group-work" @click="${this.skillClick}"></simple-icon-button>
         </div>
-        <div id="detailsList">
+        <div class="iconDiv" id="detailsList">
           <simple-icon-button icon="error" @click="${this.detailsClick}"></simple-icon-button>
         </div>
+        </div>  
       </div>
     
       <!-- ABSOLUTE POSITION CODE FOR SKILLS POP OVER -->
