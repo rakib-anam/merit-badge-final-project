@@ -20,6 +20,10 @@ class BadgeSticker extends SimpleColors {
       skills: { type: Array },
       activeNode: {type: Object},
       skillsOpened: {type: Boolean},
+
+      details: { type: String },
+      activeNode2: {type: Object},
+      detailsOpened: {type: Boolean},
     };
   }
 
@@ -84,6 +88,16 @@ class BadgeSticker extends SimpleColors {
       width: 100%;
       min-width: 100px;
     }
+
+    .details
+    {
+      background-color: grey;
+      padding: 10px;
+      margin: 5px;
+      border: 4px solid black;
+      width: 100%;
+      min-width: 100px;
+    }
     
   `];
 
@@ -102,10 +116,12 @@ class BadgeSticker extends SimpleColors {
         <div class="badge-date">${this.date}</div>
         <div class="icons">
           <simple-icon-button icon="check-circle" @click="${this.verify}"></simple-icon-button>
-          <simple-icon-button icon="group-work" @click="${this.clickHandler}"></simple-icon-button>
         </div>
         <div id="skillList">
-          <simple-icon-button icon="cancel" @click="${this.skillClick}"></simple-icon-button>
+          <simple-icon-button icon="group-work" @click="${this.skillClick}"></simple-icon-button>
+        </div>
+        <div id="detailsList">
+          <simple-icon-button icon="error" @click="${this.detailsClick}"></simple-icon-button>
         </div>
       </div>
     
@@ -122,6 +138,19 @@ class BadgeSticker extends SimpleColors {
             <ul class="skills">${this.skills.map(item => html`<li>${item}</li>`)}</ul>
         </absolute-position-behavior> 
 
+      <!-- ABSOLUTE POSITION CODE FOR DETAILS POP OVER -->
+
+      <absolute-position-behavior
+          justify
+          position="bottom"
+          allow-overlap
+          sticky
+          auto
+          .target="${this.activeNode2}"
+          ?hidden="${!this.detailsOpened}">
+            <p class="details">This badge is only unlocked when all its skills are mastered</p>
+        </absolute-position-behavior> 
+
     `;
   }
 
@@ -136,10 +165,15 @@ class BadgeSticker extends SimpleColors {
       super.firstUpdated(changedProperties);
     }
     this.activeNode = this.shadowRoot.querySelector("#skillList");
+    this.activeNode2 = this.shadowRoot.querySelector("#detailsList");
   }
   skillClick(e) {
     this.skillsOpened = !this.skillsOpened;
     console.log(this.skillsOpened)
+  }
+  detailsClick(e) {
+    this.detailsOpened = !this.detailsOpened;
+    console.log(this.detailsOpened)
   }
 
 }
