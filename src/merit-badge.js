@@ -3,7 +3,7 @@ import "@lrnwebcomponents/absolute-position-behavior/absolute-position-behavior.
 import "@lrnwebcomponents/simple-icon/simple-icon.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icon-button.js";
-//import "@lrnwebcomponents/simple-colors.js";
+import "@lrnwebcomponents/simple-colors/simple-colors.js";
 
 import './badge-sticker.js';
 
@@ -16,7 +16,10 @@ class MeritBadge extends LitElement {
       skills: { type: Array },
       logo: { type: String },
       locked: { type: Boolean },
-      verificationLink: { type: String }
+      verificationLink: { type: String },
+
+      //simpleColors badge background color var
+      badgeColor: { type: String }
     };
   }
 
@@ -50,6 +53,7 @@ class MeritBadge extends LitElement {
 
   constructor() {
     super();
+
     this.locked = true;
     this.date = "Locked";
   }
@@ -58,6 +62,7 @@ class MeritBadge extends LitElement {
     return html`
     <!-- badge -->
       <badge-sticker 
+        accent-color=${this.badgeColor}
         .title=${this.title}
         .date=${this.date}
         .skills=${this.skills}
