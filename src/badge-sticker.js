@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
+import "@lrnwebcomponents/absolute-position-behavior/absolute-position-behavior.js";
 import "@lrnwebcomponents/simple-icon/simple-icon.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icon-button.js";
@@ -112,7 +113,8 @@ class BadgeSticker extends LitElement {
           .target="${this.activeNode}"
           ?hidden="${!this.skillsOpened}">
             <ul class="skills">${this.skills.map(item => html`<li>${item}</li>`)}</ul>
-        </absolute-position-behavior>
+        </absolute-position-behavior> 
+
     `;
   }
 
